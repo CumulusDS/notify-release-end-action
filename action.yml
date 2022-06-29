@@ -15,7 +15,7 @@ inputs:
   CHANGELOG_CHANNEL:
     description: 'Channel to send changelog to'
     required: false
-    default: 'engineering-services'
+    default: ''
   TOKEN:
     description: 'github token with API access'
     required: true
@@ -83,7 +83,7 @@ runs:
     - name: Changelog (#${{ inputs.CHANGELOG_CHANNEL }})
       id: changelog
       uses: rtCamp/action-slack-notify@v2
-      if: always()
+      if: always() && inputs.CHANGELOG_CHANNEL != ''
       env:
         SLACK_CHANNEL: "${{ inputs.CHANGELOG_CHANNEL }}"
         SLACK_USERNAME: "${{ env.REPO }}"
